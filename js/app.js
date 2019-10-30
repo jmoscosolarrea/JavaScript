@@ -1,42 +1,75 @@
 var Calculadora = {
 	init: function(){
+		var texto = "";
 		document.onclick = this.eventoCapturaNumero;
-	//	this.asignarEventosBotones('boton-accion');
-		//var teclas = document.getElementsId('calculadoraFondo');
-		//document.getElementById('calculadoraFondo').onclick = aumentarTamañoLetra;
-		//var evento = teclas.event
-		//teclas.addEventListener.onclick(eventoCapturaNumero.onclick);
-	//	eventoCapturaNumero.onclick();
 	},
 	eventoCapturaNumero: function(event){
 		var tecla_pulsada = event.target.id;
 		var pantalla = document.getElementById('display');
-		var longitud = pantalla.length;
-		alert(longitud);
-		switch(tecla_pulsada){
+		var texto = pantalla.innerHTML;
+  	switch(tecla_pulsada){
 	    case "on":
-	    document.getElementById('display').innerHTML = 0;
+			texto = "0";
+	    pantalla.innerHTML = texto;
 	    break;
 
 			case "sign":
-			if (document.getElementById('display').length < 8) {
-			  document.getElementById('display').value = document.getElementById('display').value + tecla_pulsada;
-			  document.getElementById('display').innerHTML = document.getElementById('display').value;
-		  }
+			if (texto == "0") {
+			  texto = "-";
+			  pantalla.innerHTML = texto;
+		  }else if (texto == "-"){
+				texto= "0";
+				pantalla.innerHTML = texto;
+			}
 	    break;
+
+			case "mas":
+			if (texto != "0") {
+				texto = texto + "+";
+				pantalla.innerHTML = texto;
+			}
+			break;
+
+			case "dividido":
+			if (texto != "0") {
+				texto = texto + "/";
+				pantalla.innerHTML = texto;
+			}
+			break;
+
+			case "menos":
+			if (texto != "0") {
+				texto = texto + "-";
+				pantalla.innerHTML = texto;
+			}
+			break;
+
+			case "por":
+			if (texto != "0") {
+				texto = texto + "*";
+				pantalla.innerHTML = texto;
+			}
+			break;
 
 	    case "igual":
-	    var resultado = eval(document.getElementById('display').value);
-	    document.getElementById('display').innerHTML = resultado;
-			//document.getElementById('display').innerHTML = nodoTextoPantalla.nodeValue
-	    break;
+	    var resultado = eval(texto);
+	    pantalla.innerHTML = resultado;
+			break;
+
+			case "punto":
+			if (texto != "0") {
+				texto = texto + ".";
+				pantalla.innerHTML = texto;
+			}
+			break;
 
 	    default:
-			alert(tecla_pulsada);
-			alert(document.getElementById('display').length);
-	    if (document.getElementById('display').length < 8) {
-				document.getElementById('display').value = document.getElementById('display').value + tecla_pulsada;
-				document.getElementById('display').innerHTML = document.getElementById('display').value;
+			if (texto == "0"){
+				  texto = tecla_pulsada;
+					pantalla.innerHTML = texto;
+			}else if (texto.length < 8) {
+				  texto = texto + tecla_pulsada;
+				  pantalla.innerHTML = texto;
 			}
 		}
 	}
